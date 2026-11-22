@@ -146,6 +146,44 @@ impl IntoFormat<TomlFormatContext> for biome_toml_syntax::TomlBareKey {
         )
     }
 }
+impl FormatRule<biome_toml_syntax::TomlBasicString>
+    for crate::toml::value::basic_string::FormatTomlBasicString
+{
+    type Context = TomlFormatContext;
+    #[inline(always)]
+    fn fmt(
+        &self,
+        node: &biome_toml_syntax::TomlBasicString,
+        f: &mut TomlFormatter,
+    ) -> FormatResult<()> {
+        FormatNodeRule::<biome_toml_syntax::TomlBasicString>::fmt(self, node, f)
+    }
+}
+impl AsFormat<TomlFormatContext> for biome_toml_syntax::TomlBasicString {
+    type Format<'a> = FormatRefWithRule<
+        'a,
+        biome_toml_syntax::TomlBasicString,
+        crate::toml::value::basic_string::FormatTomlBasicString,
+    >;
+    fn format(&self) -> Self::Format<'_> {
+        FormatRefWithRule::new(
+            self,
+            crate::toml::value::basic_string::FormatTomlBasicString::default(),
+        )
+    }
+}
+impl IntoFormat<TomlFormatContext> for biome_toml_syntax::TomlBasicString {
+    type Format = FormatOwnedWithRule<
+        biome_toml_syntax::TomlBasicString,
+        crate::toml::value::basic_string::FormatTomlBasicString,
+    >;
+    fn into_format(self) -> Self::Format {
+        FormatOwnedWithRule::new(
+            self,
+            crate::toml::value::basic_string::FormatTomlBasicString::default(),
+        )
+    }
+}
 impl FormatRule<biome_toml_syntax::TomlBoolean> for crate::toml::value::boolean::FormatTomlBoolean {
     type Context = TomlFormatContext;
     #[inline(always)]
@@ -179,44 +217,6 @@ impl IntoFormat<TomlFormatContext> for biome_toml_syntax::TomlBoolean {
         FormatOwnedWithRule::new(
             self,
             crate::toml::value::boolean::FormatTomlBoolean::default(),
-        )
-    }
-}
-impl FormatRule<biome_toml_syntax::TomlDateTime>
-    for crate::toml::value::date_time::FormatTomlDateTime
-{
-    type Context = TomlFormatContext;
-    #[inline(always)]
-    fn fmt(
-        &self,
-        node: &biome_toml_syntax::TomlDateTime,
-        f: &mut TomlFormatter,
-    ) -> FormatResult<()> {
-        FormatNodeRule::<biome_toml_syntax::TomlDateTime>::fmt(self, node, f)
-    }
-}
-impl AsFormat<TomlFormatContext> for biome_toml_syntax::TomlDateTime {
-    type Format<'a> = FormatRefWithRule<
-        'a,
-        biome_toml_syntax::TomlDateTime,
-        crate::toml::value::date_time::FormatTomlDateTime,
-    >;
-    fn format(&self) -> Self::Format<'_> {
-        FormatRefWithRule::new(
-            self,
-            crate::toml::value::date_time::FormatTomlDateTime::default(),
-        )
-    }
-}
-impl IntoFormat<TomlFormatContext> for biome_toml_syntax::TomlDateTime {
-    type Format = FormatOwnedWithRule<
-        biome_toml_syntax::TomlDateTime,
-        crate::toml::value::date_time::FormatTomlDateTime,
-    >;
-    fn into_format(self) -> Self::Format {
-        FormatOwnedWithRule::new(
-            self,
-            crate::toml::value::date_time::FormatTomlDateTime::default(),
         )
     }
 }
@@ -344,41 +344,305 @@ impl IntoFormat<TomlFormatContext> for biome_toml_syntax::TomlKey {
         FormatOwnedWithRule::new(self, crate::toml::auxiliary::key::FormatTomlKey::default())
     }
 }
-impl FormatRule<biome_toml_syntax::TomlKeyValue>
-    for crate::toml::auxiliary::key_value::FormatTomlKeyValue
+impl FormatRule<biome_toml_syntax::TomlLiteralString>
+    for crate::toml::value::literal_string::FormatTomlLiteralString
 {
     type Context = TomlFormatContext;
     #[inline(always)]
     fn fmt(
         &self,
-        node: &biome_toml_syntax::TomlKeyValue,
+        node: &biome_toml_syntax::TomlLiteralString,
         f: &mut TomlFormatter,
     ) -> FormatResult<()> {
-        FormatNodeRule::<biome_toml_syntax::TomlKeyValue>::fmt(self, node, f)
+        FormatNodeRule::<biome_toml_syntax::TomlLiteralString>::fmt(self, node, f)
     }
 }
-impl AsFormat<TomlFormatContext> for biome_toml_syntax::TomlKeyValue {
+impl AsFormat<TomlFormatContext> for biome_toml_syntax::TomlLiteralString {
     type Format<'a> = FormatRefWithRule<
         'a,
-        biome_toml_syntax::TomlKeyValue,
-        crate::toml::auxiliary::key_value::FormatTomlKeyValue,
+        biome_toml_syntax::TomlLiteralString,
+        crate::toml::value::literal_string::FormatTomlLiteralString,
     >;
     fn format(&self) -> Self::Format<'_> {
         FormatRefWithRule::new(
             self,
-            crate::toml::auxiliary::key_value::FormatTomlKeyValue::default(),
+            crate::toml::value::literal_string::FormatTomlLiteralString::default(),
         )
     }
 }
-impl IntoFormat<TomlFormatContext> for biome_toml_syntax::TomlKeyValue {
+impl IntoFormat<TomlFormatContext> for biome_toml_syntax::TomlLiteralString {
     type Format = FormatOwnedWithRule<
-        biome_toml_syntax::TomlKeyValue,
-        crate::toml::auxiliary::key_value::FormatTomlKeyValue,
+        biome_toml_syntax::TomlLiteralString,
+        crate::toml::value::literal_string::FormatTomlLiteralString,
     >;
     fn into_format(self) -> Self::Format {
         FormatOwnedWithRule::new(
             self,
-            crate::toml::auxiliary::key_value::FormatTomlKeyValue::default(),
+            crate::toml::value::literal_string::FormatTomlLiteralString::default(),
+        )
+    }
+}
+impl FormatRule<biome_toml_syntax::TomlLocalDate>
+    for crate::toml::value::local_date::FormatTomlLocalDate
+{
+    type Context = TomlFormatContext;
+    #[inline(always)]
+    fn fmt(
+        &self,
+        node: &biome_toml_syntax::TomlLocalDate,
+        f: &mut TomlFormatter,
+    ) -> FormatResult<()> {
+        FormatNodeRule::<biome_toml_syntax::TomlLocalDate>::fmt(self, node, f)
+    }
+}
+impl AsFormat<TomlFormatContext> for biome_toml_syntax::TomlLocalDate {
+    type Format<'a> = FormatRefWithRule<
+        'a,
+        biome_toml_syntax::TomlLocalDate,
+        crate::toml::value::local_date::FormatTomlLocalDate,
+    >;
+    fn format(&self) -> Self::Format<'_> {
+        FormatRefWithRule::new(
+            self,
+            crate::toml::value::local_date::FormatTomlLocalDate::default(),
+        )
+    }
+}
+impl IntoFormat<TomlFormatContext> for biome_toml_syntax::TomlLocalDate {
+    type Format = FormatOwnedWithRule<
+        biome_toml_syntax::TomlLocalDate,
+        crate::toml::value::local_date::FormatTomlLocalDate,
+    >;
+    fn into_format(self) -> Self::Format {
+        FormatOwnedWithRule::new(
+            self,
+            crate::toml::value::local_date::FormatTomlLocalDate::default(),
+        )
+    }
+}
+impl FormatRule<biome_toml_syntax::TomlLocalDateTime>
+    for crate::toml::value::local_date_time::FormatTomlLocalDateTime
+{
+    type Context = TomlFormatContext;
+    #[inline(always)]
+    fn fmt(
+        &self,
+        node: &biome_toml_syntax::TomlLocalDateTime,
+        f: &mut TomlFormatter,
+    ) -> FormatResult<()> {
+        FormatNodeRule::<biome_toml_syntax::TomlLocalDateTime>::fmt(self, node, f)
+    }
+}
+impl AsFormat<TomlFormatContext> for biome_toml_syntax::TomlLocalDateTime {
+    type Format<'a> = FormatRefWithRule<
+        'a,
+        biome_toml_syntax::TomlLocalDateTime,
+        crate::toml::value::local_date_time::FormatTomlLocalDateTime,
+    >;
+    fn format(&self) -> Self::Format<'_> {
+        FormatRefWithRule::new(
+            self,
+            crate::toml::value::local_date_time::FormatTomlLocalDateTime::default(),
+        )
+    }
+}
+impl IntoFormat<TomlFormatContext> for biome_toml_syntax::TomlLocalDateTime {
+    type Format = FormatOwnedWithRule<
+        biome_toml_syntax::TomlLocalDateTime,
+        crate::toml::value::local_date_time::FormatTomlLocalDateTime,
+    >;
+    fn into_format(self) -> Self::Format {
+        FormatOwnedWithRule::new(
+            self,
+            crate::toml::value::local_date_time::FormatTomlLocalDateTime::default(),
+        )
+    }
+}
+impl FormatRule<biome_toml_syntax::TomlLocalTime>
+    for crate::toml::value::local_time::FormatTomlLocalTime
+{
+    type Context = TomlFormatContext;
+    #[inline(always)]
+    fn fmt(
+        &self,
+        node: &biome_toml_syntax::TomlLocalTime,
+        f: &mut TomlFormatter,
+    ) -> FormatResult<()> {
+        FormatNodeRule::<biome_toml_syntax::TomlLocalTime>::fmt(self, node, f)
+    }
+}
+impl AsFormat<TomlFormatContext> for biome_toml_syntax::TomlLocalTime {
+    type Format<'a> = FormatRefWithRule<
+        'a,
+        biome_toml_syntax::TomlLocalTime,
+        crate::toml::value::local_time::FormatTomlLocalTime,
+    >;
+    fn format(&self) -> Self::Format<'_> {
+        FormatRefWithRule::new(
+            self,
+            crate::toml::value::local_time::FormatTomlLocalTime::default(),
+        )
+    }
+}
+impl IntoFormat<TomlFormatContext> for biome_toml_syntax::TomlLocalTime {
+    type Format = FormatOwnedWithRule<
+        biome_toml_syntax::TomlLocalTime,
+        crate::toml::value::local_time::FormatTomlLocalTime,
+    >;
+    fn into_format(self) -> Self::Format {
+        FormatOwnedWithRule::new(
+            self,
+            crate::toml::value::local_time::FormatTomlLocalTime::default(),
+        )
+    }
+}
+impl FormatRule<biome_toml_syntax::TomlMember>
+    for crate::toml::auxiliary::member::FormatTomlMember
+{
+    type Context = TomlFormatContext;
+    #[inline(always)]
+    fn fmt(&self, node: &biome_toml_syntax::TomlMember, f: &mut TomlFormatter) -> FormatResult<()> {
+        FormatNodeRule::<biome_toml_syntax::TomlMember>::fmt(self, node, f)
+    }
+}
+impl AsFormat<TomlFormatContext> for biome_toml_syntax::TomlMember {
+    type Format<'a> = FormatRefWithRule<
+        'a,
+        biome_toml_syntax::TomlMember,
+        crate::toml::auxiliary::member::FormatTomlMember,
+    >;
+    fn format(&self) -> Self::Format<'_> {
+        FormatRefWithRule::new(
+            self,
+            crate::toml::auxiliary::member::FormatTomlMember::default(),
+        )
+    }
+}
+impl IntoFormat<TomlFormatContext> for biome_toml_syntax::TomlMember {
+    type Format = FormatOwnedWithRule<
+        biome_toml_syntax::TomlMember,
+        crate::toml::auxiliary::member::FormatTomlMember,
+    >;
+    fn into_format(self) -> Self::Format {
+        FormatOwnedWithRule::new(
+            self,
+            crate::toml::auxiliary::member::FormatTomlMember::default(),
+        )
+    }
+}
+impl FormatRule<biome_toml_syntax::TomlMultilineBasicString>
+    for crate::toml::value::multiline_basic_string::FormatTomlMultilineBasicString
+{
+    type Context = TomlFormatContext;
+    #[inline(always)]
+    fn fmt(
+        &self,
+        node: &biome_toml_syntax::TomlMultilineBasicString,
+        f: &mut TomlFormatter,
+    ) -> FormatResult<()> {
+        FormatNodeRule::<biome_toml_syntax::TomlMultilineBasicString>::fmt(self, node, f)
+    }
+}
+impl AsFormat<TomlFormatContext> for biome_toml_syntax::TomlMultilineBasicString {
+    type Format<'a> = FormatRefWithRule<
+        'a,
+        biome_toml_syntax::TomlMultilineBasicString,
+        crate::toml::value::multiline_basic_string::FormatTomlMultilineBasicString,
+    >;
+    fn format(&self) -> Self::Format<'_> {
+        FormatRefWithRule::new(
+            self,
+            crate::toml::value::multiline_basic_string::FormatTomlMultilineBasicString::default(),
+        )
+    }
+}
+impl IntoFormat<TomlFormatContext> for biome_toml_syntax::TomlMultilineBasicString {
+    type Format = FormatOwnedWithRule<
+        biome_toml_syntax::TomlMultilineBasicString,
+        crate::toml::value::multiline_basic_string::FormatTomlMultilineBasicString,
+    >;
+    fn into_format(self) -> Self::Format {
+        FormatOwnedWithRule::new(
+            self,
+            crate::toml::value::multiline_basic_string::FormatTomlMultilineBasicString::default(),
+        )
+    }
+}
+impl FormatRule<biome_toml_syntax::TomlMultilineLiteralString>
+    for crate::toml::value::multiline_literal_string::FormatTomlMultilineLiteralString
+{
+    type Context = TomlFormatContext;
+    #[inline(always)]
+    fn fmt(
+        &self,
+        node: &biome_toml_syntax::TomlMultilineLiteralString,
+        f: &mut TomlFormatter,
+    ) -> FormatResult<()> {
+        FormatNodeRule::<biome_toml_syntax::TomlMultilineLiteralString>::fmt(self, node, f)
+    }
+}
+impl AsFormat<TomlFormatContext> for biome_toml_syntax::TomlMultilineLiteralString {
+    type Format<'a> = FormatRefWithRule<
+        'a,
+        biome_toml_syntax::TomlMultilineLiteralString,
+        crate::toml::value::multiline_literal_string::FormatTomlMultilineLiteralString,
+    >;
+    fn format(&self) -> Self::Format<'_> {
+        FormatRefWithRule::new(
+            self,
+            crate::toml::value::multiline_literal_string::FormatTomlMultilineLiteralString::default(
+            ),
+        )
+    }
+}
+impl IntoFormat<TomlFormatContext> for biome_toml_syntax::TomlMultilineLiteralString {
+    type Format = FormatOwnedWithRule<
+        biome_toml_syntax::TomlMultilineLiteralString,
+        crate::toml::value::multiline_literal_string::FormatTomlMultilineLiteralString,
+    >;
+    fn into_format(self) -> Self::Format {
+        FormatOwnedWithRule::new(
+            self,
+            crate::toml::value::multiline_literal_string::FormatTomlMultilineLiteralString::default(
+            ),
+        )
+    }
+}
+impl FormatRule<biome_toml_syntax::TomlOffsetDateTime>
+    for crate::toml::value::offset_date_time::FormatTomlOffsetDateTime
+{
+    type Context = TomlFormatContext;
+    #[inline(always)]
+    fn fmt(
+        &self,
+        node: &biome_toml_syntax::TomlOffsetDateTime,
+        f: &mut TomlFormatter,
+    ) -> FormatResult<()> {
+        FormatNodeRule::<biome_toml_syntax::TomlOffsetDateTime>::fmt(self, node, f)
+    }
+}
+impl AsFormat<TomlFormatContext> for biome_toml_syntax::TomlOffsetDateTime {
+    type Format<'a> = FormatRefWithRule<
+        'a,
+        biome_toml_syntax::TomlOffsetDateTime,
+        crate::toml::value::offset_date_time::FormatTomlOffsetDateTime,
+    >;
+    fn format(&self) -> Self::Format<'_> {
+        FormatRefWithRule::new(
+            self,
+            crate::toml::value::offset_date_time::FormatTomlOffsetDateTime::default(),
+        )
+    }
+}
+impl IntoFormat<TomlFormatContext> for biome_toml_syntax::TomlOffsetDateTime {
+    type Format = FormatOwnedWithRule<
+        biome_toml_syntax::TomlOffsetDateTime,
+        crate::toml::value::offset_date_time::FormatTomlOffsetDateTime,
+    >;
+    fn into_format(self) -> Self::Format {
+        FormatOwnedWithRule::new(
+            self,
+            crate::toml::value::offset_date_time::FormatTomlOffsetDateTime::default(),
         )
     }
 }
@@ -449,38 +713,6 @@ impl IntoFormat<TomlFormatContext> for biome_toml_syntax::TomlRoot {
         FormatOwnedWithRule::new(
             self,
             crate::toml::auxiliary::root::FormatTomlRoot::default(),
-        )
-    }
-}
-impl FormatRule<biome_toml_syntax::TomlString> for crate::toml::value::string::FormatTomlString {
-    type Context = TomlFormatContext;
-    #[inline(always)]
-    fn fmt(&self, node: &biome_toml_syntax::TomlString, f: &mut TomlFormatter) -> FormatResult<()> {
-        FormatNodeRule::<biome_toml_syntax::TomlString>::fmt(self, node, f)
-    }
-}
-impl AsFormat<TomlFormatContext> for biome_toml_syntax::TomlString {
-    type Format<'a> = FormatRefWithRule<
-        'a,
-        biome_toml_syntax::TomlString,
-        crate::toml::value::string::FormatTomlString,
-    >;
-    fn format(&self) -> Self::Format<'_> {
-        FormatRefWithRule::new(
-            self,
-            crate::toml::value::string::FormatTomlString::default(),
-        )
-    }
-}
-impl IntoFormat<TomlFormatContext> for biome_toml_syntax::TomlString {
-    type Format = FormatOwnedWithRule<
-        biome_toml_syntax::TomlString,
-        crate::toml::value::string::FormatTomlString,
-    >;
-    fn into_format(self) -> Self::Format {
-        FormatOwnedWithRule::new(
-            self,
-            crate::toml::value::string::FormatTomlString::default(),
         )
     }
 }
@@ -579,78 +811,80 @@ impl IntoFormat<TomlFormatContext> for biome_toml_syntax::TomlArrayElementList {
         )
     }
 }
-impl AsFormat<TomlFormatContext> for biome_toml_syntax::TomlInlineTableEntryList {
+impl AsFormat<TomlFormatContext> for biome_toml_syntax::TomlInlineTableMemberList {
     type Format<'a> = FormatRefWithRule<
         'a,
-        biome_toml_syntax::TomlInlineTableEntryList,
-        crate::toml::lists::inline_table_entry_list::FormatTomlInlineTableEntryList,
+        biome_toml_syntax::TomlInlineTableMemberList,
+        crate::toml::lists::inline_table_member_list::FormatTomlInlineTableMemberList,
     >;
     fn format(&self) -> Self::Format<'_> {
         FormatRefWithRule::new(
             self,
-            crate::toml::lists::inline_table_entry_list::FormatTomlInlineTableEntryList::default(),
+            crate::toml::lists::inline_table_member_list::FormatTomlInlineTableMemberList::default(
+            ),
         )
     }
 }
-impl IntoFormat<TomlFormatContext> for biome_toml_syntax::TomlInlineTableEntryList {
+impl IntoFormat<TomlFormatContext> for biome_toml_syntax::TomlInlineTableMemberList {
     type Format = FormatOwnedWithRule<
-        biome_toml_syntax::TomlInlineTableEntryList,
-        crate::toml::lists::inline_table_entry_list::FormatTomlInlineTableEntryList,
+        biome_toml_syntax::TomlInlineTableMemberList,
+        crate::toml::lists::inline_table_member_list::FormatTomlInlineTableMemberList,
     >;
     fn into_format(self) -> Self::Format {
         FormatOwnedWithRule::new(
             self,
-            crate::toml::lists::inline_table_entry_list::FormatTomlInlineTableEntryList::default(),
+            crate::toml::lists::inline_table_member_list::FormatTomlInlineTableMemberList::default(
+            ),
         )
     }
 }
-impl AsFormat<TomlFormatContext> for biome_toml_syntax::TomlKeyPartList {
+impl AsFormat<TomlFormatContext> for biome_toml_syntax::TomlKeyFragmentList {
     type Format<'a> = FormatRefWithRule<
         'a,
-        biome_toml_syntax::TomlKeyPartList,
-        crate::toml::lists::key_part_list::FormatTomlKeyPartList,
+        biome_toml_syntax::TomlKeyFragmentList,
+        crate::toml::lists::key_fragment_list::FormatTomlKeyFragmentList,
     >;
     fn format(&self) -> Self::Format<'_> {
         FormatRefWithRule::new(
             self,
-            crate::toml::lists::key_part_list::FormatTomlKeyPartList::default(),
+            crate::toml::lists::key_fragment_list::FormatTomlKeyFragmentList::default(),
         )
     }
 }
-impl IntoFormat<TomlFormatContext> for biome_toml_syntax::TomlKeyPartList {
+impl IntoFormat<TomlFormatContext> for biome_toml_syntax::TomlKeyFragmentList {
     type Format = FormatOwnedWithRule<
-        biome_toml_syntax::TomlKeyPartList,
-        crate::toml::lists::key_part_list::FormatTomlKeyPartList,
+        biome_toml_syntax::TomlKeyFragmentList,
+        crate::toml::lists::key_fragment_list::FormatTomlKeyFragmentList,
     >;
     fn into_format(self) -> Self::Format {
         FormatOwnedWithRule::new(
             self,
-            crate::toml::lists::key_part_list::FormatTomlKeyPartList::default(),
+            crate::toml::lists::key_fragment_list::FormatTomlKeyFragmentList::default(),
         )
     }
 }
-impl AsFormat<TomlFormatContext> for biome_toml_syntax::TomlKeyValueList {
+impl AsFormat<TomlFormatContext> for biome_toml_syntax::TomlMemberList {
     type Format<'a> = FormatRefWithRule<
         'a,
-        biome_toml_syntax::TomlKeyValueList,
-        crate::toml::lists::key_value_list::FormatTomlKeyValueList,
+        biome_toml_syntax::TomlMemberList,
+        crate::toml::lists::member_list::FormatTomlMemberList,
     >;
     fn format(&self) -> Self::Format<'_> {
         FormatRefWithRule::new(
             self,
-            crate::toml::lists::key_value_list::FormatTomlKeyValueList::default(),
+            crate::toml::lists::member_list::FormatTomlMemberList::default(),
         )
     }
 }
-impl IntoFormat<TomlFormatContext> for biome_toml_syntax::TomlKeyValueList {
+impl IntoFormat<TomlFormatContext> for biome_toml_syntax::TomlMemberList {
     type Format = FormatOwnedWithRule<
-        biome_toml_syntax::TomlKeyValueList,
-        crate::toml::lists::key_value_list::FormatTomlKeyValueList,
+        biome_toml_syntax::TomlMemberList,
+        crate::toml::lists::member_list::FormatTomlMemberList,
     >;
     fn into_format(self) -> Self::Format {
         FormatOwnedWithRule::new(
             self,
-            crate::toml::lists::key_value_list::FormatTomlKeyValueList::default(),
+            crate::toml::lists::member_list::FormatTomlMemberList::default(),
         )
     }
 }
@@ -740,6 +974,82 @@ impl IntoFormat<TomlFormatContext> for biome_toml_syntax::TomlBogusKey {
         FormatOwnedWithRule::new(
             self,
             crate::toml::bogus::bogus_key::FormatTomlBogusKey::default(),
+        )
+    }
+}
+impl FormatRule<biome_toml_syntax::TomlBogusKeyFragment>
+    for crate::toml::bogus::bogus_key_fragment::FormatTomlBogusKeyFragment
+{
+    type Context = TomlFormatContext;
+    #[inline(always)]
+    fn fmt(
+        &self,
+        node: &biome_toml_syntax::TomlBogusKeyFragment,
+        f: &mut TomlFormatter,
+    ) -> FormatResult<()> {
+        FormatBogusNodeRule::<biome_toml_syntax::TomlBogusKeyFragment>::fmt(self, node, f)
+    }
+}
+impl AsFormat<TomlFormatContext> for biome_toml_syntax::TomlBogusKeyFragment {
+    type Format<'a> = FormatRefWithRule<
+        'a,
+        biome_toml_syntax::TomlBogusKeyFragment,
+        crate::toml::bogus::bogus_key_fragment::FormatTomlBogusKeyFragment,
+    >;
+    fn format(&self) -> Self::Format<'_> {
+        FormatRefWithRule::new(
+            self,
+            crate::toml::bogus::bogus_key_fragment::FormatTomlBogusKeyFragment::default(),
+        )
+    }
+}
+impl IntoFormat<TomlFormatContext> for biome_toml_syntax::TomlBogusKeyFragment {
+    type Format = FormatOwnedWithRule<
+        biome_toml_syntax::TomlBogusKeyFragment,
+        crate::toml::bogus::bogus_key_fragment::FormatTomlBogusKeyFragment,
+    >;
+    fn into_format(self) -> Self::Format {
+        FormatOwnedWithRule::new(
+            self,
+            crate::toml::bogus::bogus_key_fragment::FormatTomlBogusKeyFragment::default(),
+        )
+    }
+}
+impl FormatRule<biome_toml_syntax::TomlBogusMember>
+    for crate::toml::bogus::bogus_member::FormatTomlBogusMember
+{
+    type Context = TomlFormatContext;
+    #[inline(always)]
+    fn fmt(
+        &self,
+        node: &biome_toml_syntax::TomlBogusMember,
+        f: &mut TomlFormatter,
+    ) -> FormatResult<()> {
+        FormatBogusNodeRule::<biome_toml_syntax::TomlBogusMember>::fmt(self, node, f)
+    }
+}
+impl AsFormat<TomlFormatContext> for biome_toml_syntax::TomlBogusMember {
+    type Format<'a> = FormatRefWithRule<
+        'a,
+        biome_toml_syntax::TomlBogusMember,
+        crate::toml::bogus::bogus_member::FormatTomlBogusMember,
+    >;
+    fn format(&self) -> Self::Format<'_> {
+        FormatRefWithRule::new(
+            self,
+            crate::toml::bogus::bogus_member::FormatTomlBogusMember::default(),
+        )
+    }
+}
+impl IntoFormat<TomlFormatContext> for biome_toml_syntax::TomlBogusMember {
+    type Format = FormatOwnedWithRule<
+        biome_toml_syntax::TomlBogusMember,
+        crate::toml::bogus::bogus_member::FormatTomlBogusMember,
+    >;
+    fn into_format(self) -> Self::Format {
+        FormatOwnedWithRule::new(
+            self,
+            crate::toml::bogus::bogus_member::FormatTomlBogusMember::default(),
         )
     }
 }
@@ -844,6 +1154,31 @@ impl IntoFormat<TomlFormatContext> for biome_toml_syntax::AnyTomlArrayTableHeade
         )
     }
 }
+impl AsFormat<TomlFormatContext> for biome_toml_syntax::AnyTomlDateTime {
+    type Format<'a> = FormatRefWithRule<
+        'a,
+        biome_toml_syntax::AnyTomlDateTime,
+        crate::toml::any::date_time::FormatAnyTomlDateTime,
+    >;
+    fn format(&self) -> Self::Format<'_> {
+        FormatRefWithRule::new(
+            self,
+            crate::toml::any::date_time::FormatAnyTomlDateTime::default(),
+        )
+    }
+}
+impl IntoFormat<TomlFormatContext> for biome_toml_syntax::AnyTomlDateTime {
+    type Format = FormatOwnedWithRule<
+        biome_toml_syntax::AnyTomlDateTime,
+        crate::toml::any::date_time::FormatAnyTomlDateTime,
+    >;
+    fn into_format(self) -> Self::Format {
+        FormatOwnedWithRule::new(
+            self,
+            crate::toml::any::date_time::FormatAnyTomlDateTime::default(),
+        )
+    }
+}
 impl AsFormat<TomlFormatContext> for biome_toml_syntax::AnyTomlKey {
     type Format<'a> = FormatRefWithRule<
         'a,
@@ -861,53 +1196,53 @@ impl IntoFormat<TomlFormatContext> for biome_toml_syntax::AnyTomlKey {
         FormatOwnedWithRule::new(self, crate::toml::any::key::FormatAnyTomlKey::default())
     }
 }
-impl AsFormat<TomlFormatContext> for biome_toml_syntax::AnyTomlKeyPart {
+impl AsFormat<TomlFormatContext> for biome_toml_syntax::AnyTomlKeyFragment {
     type Format<'a> = FormatRefWithRule<
         'a,
-        biome_toml_syntax::AnyTomlKeyPart,
-        crate::toml::any::key_part::FormatAnyTomlKeyPart,
+        biome_toml_syntax::AnyTomlKeyFragment,
+        crate::toml::any::key_fragment::FormatAnyTomlKeyFragment,
     >;
     fn format(&self) -> Self::Format<'_> {
         FormatRefWithRule::new(
             self,
-            crate::toml::any::key_part::FormatAnyTomlKeyPart::default(),
+            crate::toml::any::key_fragment::FormatAnyTomlKeyFragment::default(),
         )
     }
 }
-impl IntoFormat<TomlFormatContext> for biome_toml_syntax::AnyTomlKeyPart {
+impl IntoFormat<TomlFormatContext> for biome_toml_syntax::AnyTomlKeyFragment {
     type Format = FormatOwnedWithRule<
-        biome_toml_syntax::AnyTomlKeyPart,
-        crate::toml::any::key_part::FormatAnyTomlKeyPart,
+        biome_toml_syntax::AnyTomlKeyFragment,
+        crate::toml::any::key_fragment::FormatAnyTomlKeyFragment,
     >;
     fn into_format(self) -> Self::Format {
         FormatOwnedWithRule::new(
             self,
-            crate::toml::any::key_part::FormatAnyTomlKeyPart::default(),
+            crate::toml::any::key_fragment::FormatAnyTomlKeyFragment::default(),
         )
     }
 }
-impl AsFormat<TomlFormatContext> for biome_toml_syntax::AnyTomlKeyValue {
+impl AsFormat<TomlFormatContext> for biome_toml_syntax::AnyTomlMember {
     type Format<'a> = FormatRefWithRule<
         'a,
-        biome_toml_syntax::AnyTomlKeyValue,
-        crate::toml::any::key_value::FormatAnyTomlKeyValue,
+        biome_toml_syntax::AnyTomlMember,
+        crate::toml::any::member::FormatAnyTomlMember,
     >;
     fn format(&self) -> Self::Format<'_> {
         FormatRefWithRule::new(
             self,
-            crate::toml::any::key_value::FormatAnyTomlKeyValue::default(),
+            crate::toml::any::member::FormatAnyTomlMember::default(),
         )
     }
 }
-impl IntoFormat<TomlFormatContext> for biome_toml_syntax::AnyTomlKeyValue {
+impl IntoFormat<TomlFormatContext> for biome_toml_syntax::AnyTomlMember {
     type Format = FormatOwnedWithRule<
-        biome_toml_syntax::AnyTomlKeyValue,
-        crate::toml::any::key_value::FormatAnyTomlKeyValue,
+        biome_toml_syntax::AnyTomlMember,
+        crate::toml::any::member::FormatAnyTomlMember,
     >;
     fn into_format(self) -> Self::Format {
         FormatOwnedWithRule::new(
             self,
-            crate::toml::any::key_value::FormatAnyTomlKeyValue::default(),
+            crate::toml::any::member::FormatAnyTomlMember::default(),
         )
     }
 }
@@ -933,6 +1268,31 @@ impl IntoFormat<TomlFormatContext> for biome_toml_syntax::AnyTomlRootItem {
         FormatOwnedWithRule::new(
             self,
             crate::toml::any::root_item::FormatAnyTomlRootItem::default(),
+        )
+    }
+}
+impl AsFormat<TomlFormatContext> for biome_toml_syntax::AnyTomlString {
+    type Format<'a> = FormatRefWithRule<
+        'a,
+        biome_toml_syntax::AnyTomlString,
+        crate::toml::any::string::FormatAnyTomlString,
+    >;
+    fn format(&self) -> Self::Format<'_> {
+        FormatRefWithRule::new(
+            self,
+            crate::toml::any::string::FormatAnyTomlString::default(),
+        )
+    }
+}
+impl IntoFormat<TomlFormatContext> for biome_toml_syntax::AnyTomlString {
+    type Format = FormatOwnedWithRule<
+        biome_toml_syntax::AnyTomlString,
+        crate::toml::any::string::FormatAnyTomlString,
+    >;
+    fn into_format(self) -> Self::Format {
+        FormatOwnedWithRule::new(
+            self,
+            crate::toml::any::string::FormatAnyTomlString::default(),
         )
     }
 }
